@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <br>
+   <center> <H1>Youtube Video Playback</H1>
+<br><br>
+    <video id="videoplayer" width="820" height="540" controls>
+  <source id="videosrc" src="" type="video/mp4">
+  
+</video>
+<!-- <iframe id="videosrc" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe> -->
+</center>
+
+<script>
+
+var apiKey = 'AIzaSyBIPiSYzpNAFGR0J7hwVLHEcUXVzWDlnnI';
+
+var videoId = 'VHWjujhToU0';
+
+
+var apiUrl = 'https://www.googleapis.com/youtube/v3/videos?id=' + videoId + '&key=' + apiKey + '&part=snippet,contentDetails,statistics,status';
+
+
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    var videoData = data.items[0];
+    var videoUrl = 'https://www.youtube.com/watch?v=' + videoData.id;
+    console.log(videoUrl);
+    
+    document.getElementById('videosrc').src = videoUrl;
+
+    
+    document.getElementById('videoplayer').load();
+  })
+  .catch(error => console.error('Error:', error));
+</script>
+
+</body>
+</html>
